@@ -53,13 +53,6 @@ def drop_missing_reviews(
     return reviews_df.dropna(subset=list(required_cols))
 
 
-def filter_recent_reviews(
-    reviews_df: pd.DataFrame, years: int = 5, date_col: str = "review_date"
-) -> pd.DataFrame:
-    latest_year = reviews_df[date_col].max().year
-    return reviews_df[reviews_df[date_col].dt.year >= latest_year - (years - 1)]
-
-
 def pct(x: int, n: int) -> str:
     return f"{(x / n * 100):.2f}%"
 
@@ -90,6 +83,29 @@ def build_hotels_agg(
         .sort_values("num_reviews", ascending=False)
         .reset_index()
     )
+
+def make_reproducible_samples(
+    reviews_df: pd.DataFrame,
+    analysis_n: int,
+    sample_n: int,
+    seed: int = 42,
+    sort_key: str = "review_id",
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Deterministically sample analysis and sample datasets.
+    Sorting first ensures identical row order across machines.
+    """
+
+    if sort_key not in reviews_df.columns:
+        raise ValueError(f"{sort_key} not found in reviews_df")
+
+    df_sorted = reviews_df.sort_values(sort_key).reset_index(drop=True)
+
+    analysis_df = df_sorted.sample(n=analysis_n, random_state=seed)
+
+    sample_df = analysis_df.sample(n=sample_n, random_state=seed)
+
+    return analysis_df.reset_index(drop=True), sample_df.reset_index(drop=True)
 
 
 def write_db(
