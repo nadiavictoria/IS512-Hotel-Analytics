@@ -32,16 +32,45 @@ def build_reviews(df_raw: pd.DataFrame) -> pd.DataFrame:
 
 def build_authors(df_raw: pd.DataFrame) -> pd.DataFrame:
     author_df = pd.json_normalize(df_raw["author"])
-    author_df["author_key"] = (
-        author_df["id"].astype(str) + "|" + author_df["username"].astype(str)
-    )
+    # author_df["author_key"] = (
+    #     author_df["id"].astype(str) + "|" + author_df["username"].astype(str)
+    # )
     return author_df
 
+def aggregate_user(group):
+    first_username = group["username"].iloc[0]
+
+    # Collect aliases (different usernames)
+    alias = (
+        group["username"]
+        .drop_duplicates()
+        .loc[lambda x: x != first_username]
+        .tolist()
+    )
+
+    return pd.Series({
+        "id": group.name,
+        "username": first_username,
+        "num_cities": group["num_cities"].max(),
+        "num_helpful_votes": group["num_helpful_votes"].max(),
+        "num_reviews": group["num_reviews"].max(),
+        "num_type_reviews": group["num_type_reviews"].max(),
+        "location": group["location"].iloc[0],
+        "alias": alias
+    })
 
 def attach_author_key(
     reviews_df: pd.DataFrame, author_df: pd.DataFrame
 ) -> pd.DataFrame:
     out = reviews_df.join(author_df["author_key"])
+    if "author" in out.columns:
+        out = out.drop(columns=["author"])
+    return out
+
+def attach_author_id(
+    reviews_df: pd.DataFrame, author_df: pd.DataFrame
+) -> pd.DataFrame:
+    out = reviews_df.join(author_df["id"].rename("author_id"))
     if "author" in out.columns:
         out = out.drop(columns=["author"])
     return out
