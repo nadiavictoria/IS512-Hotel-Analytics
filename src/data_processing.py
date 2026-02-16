@@ -32,9 +32,6 @@ def build_reviews(df_raw: pd.DataFrame) -> pd.DataFrame:
 
 def build_authors(df_raw: pd.DataFrame) -> pd.DataFrame:
     author_df = pd.json_normalize(df_raw["author"])
-    # author_df["author_key"] = (
-    #     author_df["id"].astype(str) + "|" + author_df["username"].astype(str)
-    # )
     return author_df
 
 def aggregate_user(group):
@@ -59,20 +56,12 @@ def aggregate_user(group):
         "alias": alias
     })
 
-def attach_author_key(
-    reviews_df: pd.DataFrame, author_df: pd.DataFrame
-) -> pd.DataFrame:
-    out = reviews_df.join(author_df["author_key"])
-    if "author" in out.columns:
-        out = out.drop(columns=["author"])
-    return out
-
-def attach_author_id(
-    reviews_df: pd.DataFrame, author_df: pd.DataFrame
-) -> pd.DataFrame:
-    out = reviews_df.join(author_df["id"].rename("author_id"))
-    if "author" in out.columns:
-        out = out.drop(columns=["author"])
+def attach_author_id(reviews_df: pd.DataFrame) -> pd.DataFrame:
+    out = reviews_df.copy()
+    out["author_id"] = out["author"].apply(
+        lambda a: a.get("id") if isinstance(a, dict) else None
+    )
+    out = out.drop(columns=["author"])
     return out
 
 
@@ -148,7 +137,7 @@ def write_db(
     if "review_date" in reviews_out.columns:
         reviews_out["review_date"] = pd.to_datetime(
             reviews_out["review_date"], errors="coerce"
-        ).dt.strftime("%Y-%m-%d")
+        )
 
     if "hotel_id" in reviews_out.columns and "hotel_id" in hotels_df.columns:
         hotels_out = hotels_df[
@@ -157,9 +146,9 @@ def write_db(
     else:
         hotels_out = hotels_df.copy()
 
-    if "author_key" in reviews_out.columns and "author_key" in author_df.columns:
+    if "author_id" in reviews_out.columns and "id" in author_df.columns:
         authors_out = author_df[
-            author_df["author_key"].isin(reviews_out["author_key"].dropna().unique())
+            author_df["id"].isin(reviews_out["author_id"].dropna().unique())
         ].copy()
     else:
         authors_out = author_df.copy()
@@ -181,15 +170,16 @@ def write_db(
         cur.execute(
             "CREATE UNIQUE INDEX IF NOT EXISTS ux_reviews_review_id ON reviews(review_id)"
         )
+
     if "hotel_id" in hotels_out.columns:
         cur.execute(
             "CREATE UNIQUE INDEX IF NOT EXISTS ux_hotels_hotel_id ON hotels(hotel_id)"
         )
 
-    if "author_key" in authors_out.columns:
-        cur.execute("CREATE INDEX IF NOT EXISTS idx_authors_author_key ON authors(author_key)")
+    if "id" in authors_out.columns:
+        cur.execute("CREATE INDEX IF NOT EXISTS idx_authors_id ON authors(id)")
         cur.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS ux_authors_author_key ON authors(author_key)"
+            "CREATE UNIQUE INDEX IF NOT EXISTS ux_authors_id ON authors(id)"
         )
 
     cur.execute("CREATE INDEX IF NOT EXISTS idx_hotels_hotel_id ON hotels(hotel_id)")
