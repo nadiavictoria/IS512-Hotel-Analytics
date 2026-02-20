@@ -1,1 +1,113 @@
-THIS IS ONLY A PLACEHOLDER
+======================================================================
+HOTEL ANALYTICS - CODE PROFILING RESULTS
+Generated : 2026-02-20 14:59:12
+======================================================================
+
+--- DATA LOADING STRATEGIES ---
+  Full load (SELECT *)          :    286.8 ms
+  Chunked (5 000/batch)         :    282.5 ms
+  Column projection (6)         :     98.9 ms
+
+
+--- cProfile: pd.read_sql (full load) ---
+         3175 function calls (3143 primitive calls) in 0.300 seconds
+
+   Ordered by: cumulative time
+   List reduced from 330 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      2/1    0.000    0.000    0.299    0.299 /tmp/ipykernel_59761/3914024248.py:4(load_full)
+      2/1    0.013    0.006    0.299    0.299 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/io/sql.py:539(read_sql)
+        1    0.000    0.000    0.283    0.283 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/io/sql.py:2755(read_query)
+        1    0.000    0.000    0.192    0.192 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/io/sql.py:2795(_fetchall_as_list)
+        1    0.192    0.192    0.192    0.192 {method 'fetchall' of 'sqlite3.Cursor' objects}
+        1    0.000    0.000    0.066    0.066 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/io/sql.py:195(_wrap_result)
+       18    0.036    0.002    0.042    0.002 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/internals/construction.py:971(convert)
+        4    0.000    0.000    0.036    0.009 /usr/lib/python3.14/asyncio/base_events.py:1966(_run_once)
+        5    0.000    0.000    0.035    0.007 /usr/lib/python3.14/asyncio/events.py:92(_run)
+        5    0.000    0.000    0.035    0.007 {method 'run' of '_contextvars.Context' objects}
+        4    0.000    0.000    0.035    0.009 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/zmq/eventloop/zmqstream.py:573(_handle_events)
+        2    0.000    0.000    0.035    0.017 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/tornado/platform/asyncio.py:206(_handle_events)
+        4    0.000    0.000    0.035    0.009 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/zmq/eventloop/zmqstream.py:614(_handle_recv)
+        4    0.000    0.000    0.035    0.009 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/zmq/eventloop/zmqstream.py:546(_run_callback)
+        4    0.000    0.000    0.034    0.009 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/ipykernel/iostream.py:229(_handle_event)
+        3    0.000    0.000    0.034    0.011 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/ipykernel/iostream.py:348(<lambda>)
+        3    0.000    0.000    0.034    0.011 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/ipykernel/iostream.py:350(_really_send)
+        3    0.000    0.000    0.034    0.011 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/zmq/sugar/socket.py:700(send_multipart)
+
+
+
+
+--- cProfile: compute_hotel_stats_full ---
+         9272 function calls (8997 primitive calls) in 0.024 seconds
+
+   Ordered by: cumulative time
+   List reduced from 590 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        6    0.000    0.000    0.018    0.003 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/generic.py:505(_aggregate_multiple_funcs)
+       18    0.000    0.000    0.014    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/internals/managers.py:2255(grouped_reduce)
+       12    0.000    0.000    0.014    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/groupby.py:1764(_cython_agg_general)
+       12    0.000    0.000    0.014    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/groupby.py:1781(array_func)
+       12    0.000    0.000    0.013    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:940(_cython_operation)
+        6    0.000    0.000    0.012    0.002 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/groupby.py:2192(mean)
+        1    0.000    0.000    0.008    0.008 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:750(has_dropped_na)
+       19    0.000    0.000    0.008    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:772(ids)
+        1    0.000    0.000    0.008    0.008 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:776(result_index_and_ids)
+        1    0.000    0.000    0.008    0.008 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/grouper.py:616(uniques)
+        1    0.000    0.000    0.008    0.008 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/grouper.py:620(_codes_and_uniques)
+        1    0.000    0.000    0.008    0.008 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/algorithms.py:652(factorize)
+        1    0.004    0.004    0.007    0.007 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/decorator.py:232(fun)
+       12    0.000    0.000    0.005    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:535(cython_operation)
+       12    0.000    0.000    0.005    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:311(_cython_op_ndim_compat)
+       12    0.004    0.000    0.005    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/pandas/core/groupby/ops.py:358(_call_cython_op)
+        1    0.000    0.000    0.003    0.003 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/ipykernel/iostream.py:348(<lambda>)
+        1    0.000    0.000    0.003    0.003 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/ipykernel/iostream.py:350(_really_send)
+
+
+
+
+--- cProfile: KMeans clustering pipeline ---
+         43440 function calls (43274 primitive calls) in 0.064 seconds
+
+   Ordered by: cumulative time
+   List reduced from 572 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.061    0.061 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/cluster/_kmeans.py:1432(fit)
+       10    0.000    0.000    0.045    0.005 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/utils/parallel.py:206(wrapper)
+       10    0.020    0.002    0.029    0.003 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/cluster/_kmeans.py:629(_kmeans_single_lloyd)
+       10    0.000    0.000    0.016    0.002 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/utils/parallel.py:187(_get_threadpool_controller)
+        1    0.000    0.000    0.016    0.016 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:816(__init__)
+        1    0.000    0.000    0.016    0.016 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:967(_load_libraries)
+        1    0.000    0.000    0.016    0.016 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:978(_find_libraries_with_dl_iterate_phdr)
+      292    0.000    0.000    0.012    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:998(match_library_callback)
+      291    0.001    0.000    0.012    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:1143(_make_controller_from_path)
+      291    0.000    0.000    0.009    0.000 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/threadpoolctl.py:545(_realpath)
+      291    0.003    0.000    0.009    0.000 <frozen posixpath>:388(realpath)
+       10    0.000    0.000    0.009    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/cluster/_kmeans.py:961(_init_centroids)
+       10    0.002    0.000    0.009    0.001 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/sklearn/cluster/_kmeans.py:180(_kmeans_plusplus)
+        1    0.000    0.000    0.007    0.007 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/joblib/parallel.py:631(cpu_count)
+        1    0.000    0.000    0.006    0.006 ../IS5128/IS512-Hotel-Analytics/.venv/lib/python3.14/site-packages/joblib/externals/loky/backend/context.py:78(cpu_count)
+
+
+
+
+--- VECTORISATION BENCHMARK ---
+              Method N rows  Time (ms)  Speedup vs loop
+Python iterrows loop   10 k   240.4000           1.0000
+      Pandas groupby   10 k     2.0700         116.1000
+      Pandas groupby   80 k     6.2900          38.2000
+      NumPy bincount   80 k    34.5600           7.0000
+  Pandas groupby speedup vs iterrows: ~116x (10k rows)
+  NumPy bincount speedup vs Pandas:   ~0.2x (80k rows)
+
+
+--- MEMORY PROFILING (tracemalloc) ---
+                             Net Delta (MB)  Snapshot Top20 (MB)
+Operation                                                       
+Load reviews (SELECT *)            131.7300             131.7300
+Load reviews (projection)           23.1000              23.1000
+Hotel stats (full, 18 cols)          0.5100               0.5000
+Hotel stats (minimal, 3)             0.1100               0.1100
+KMeans fit  (k=5)                    0.0300               0.0300
