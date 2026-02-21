@@ -1,4 +1,8 @@
 import re
+import itertools
+import numpy as np
+import umap
+from sentence_transformers import SentenceTransformer
 
 def get_stopwords_list(stop_file_path):
     """load stop words """
@@ -63,3 +67,36 @@ def get_keywords(vectorizer, feature_names, doc, top_k_keywords=10):
     keywords=extract_topn_from_vector(feature_names,sorted_items,top_k_keywords)
     
     return list(keywords.keys())
+
+def generate_keyword_embeddings_2d(final_df, n_words=None, random_state=None, model_name='all-MiniLM-L6-v2'):
+    """
+    Generate 2D embeddings using umap.
+    """
+
+    # Flatten all keywords into a unique set
+    all_words = set(itertools.chain.from_iterable(final_df['top_keywords']))
+    print(f"Number of unique words: {len(all_words)}")
+
+    # Select up to n_words randomly
+    if random_state is not None:
+        np.random.seed(random_state)
+    
+    # Get all words
+    word_list = list(all_words)
+
+    if n_words is not None and len(word_list) > n_words:
+        selected_words = np.random.choice(word_list, size=n_words, replace=False)
+    else:
+        selected_words = word_list
+
+    # Load embedding model
+    model = SentenceTransformer(model_name)
+    embeddings = model.encode(selected_words)
+    print(f"Embedding shape: {embeddings.shape}")
+
+    # Reduce to 2D with UMAP
+    reducer = umap.UMAP(n_components=2, random_state=random_state)
+    embeddings_2d = reducer.fit_transform(embeddings)
+    print(f"2D embedding shape: {embeddings_2d.shape}")
+
+    return embeddings_2d, selected_words
