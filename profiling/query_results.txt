@@ -1,7 +1,7 @@
 ======================================================================
 HOTEL ANALYTICS - QUERY PROFILING RESULTS
-Generated : 2026-02-20 14:52:07
-Database  : ../IS5128/IS512-Hotel-Analytics/data/reviews_analysis.db
+Generated : 2026-02-21 16:11:28
+Database  : /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/data/reviews_analysis.db
 ======================================================================
 
 --- TABLE ROW COUNTS ---
@@ -13,8 +13,6 @@ Database  : ../IS5128/IS512-Hotel-Analytics/data/reviews_analysis.db
                   name tbl_name
         idx_authors_id  authors
          ux_authors_id  authors
-    ux_hotels_hotel_id   hotels
-   idx_hotels_hotel_id   hotels
      idx_reviews_hotel  reviews
       idx_reviews_date  reviews
 idx_reviews_hotel_date  reviews
@@ -23,51 +21,51 @@ idx_reviews_hotel_date  reviews
 
 --- BENCHMARK RESULTS (median ms, n=12 runs) ---
                           No Index (ms)  With Index (ms)  Speedup (x)  Rows Returned
-Q1: Hotel Point Lookup          13.2290           0.6470      20.4300       295.0000
-Q2: Date Range (2012)           97.3390         102.8950       0.9500     36283.0000
-Q3: Composite Hotel+Date        11.7850           0.3930      29.9900       190.0000
-Q4: GROUP BY Aggregation        37.3970          44.4950       0.8400      3380.0000
-Q5: JOIN Reviews+Hotels         56.4090          43.1540       1.3100     12008.0000
-Q6: LIKE Text Search            84.3890          84.0990       1.0000         1.0000
+Q1: Hotel Point Lookup          10.4690           0.7470      14.0100       295.0000
+Q2: Date Range (2012)          100.5830         114.5820       0.8800     36283.0000
+Q3: Composite Hotel+Date        10.2070           0.4720      21.6400       190.0000
+Q4: GROUP BY Aggregation        35.6440          45.2280       0.7900      3380.0000
+Q5: JOIN Reviews+Hotels         65.6160          43.2090       1.5200     12008.0000
+Q6: LIKE Text Search           129.3590         128.6530       1.0100         1.0000
 
 
 --- SELECTIVITY ANALYSIS ---
                    Query  Selectivity %  Speedup (x)  Rows Returned
-  Q1: Hotel Point Lookup         0.3690      20.4300       295.0000
-   Q2: Date Range (2012)        45.3540       0.9500     36283.0000
-Q3: Composite Hotel+Date         0.2380      29.9900       190.0000
-Q4: GROUP BY Aggregation         4.2250       0.8400      3380.0000
- Q5: JOIN Reviews+Hotels        15.0100       1.3100     12008.0000
-    Q6: LIKE Text Search         0.0010       1.0000         1.0000
+  Q1: Hotel Point Lookup         0.3690      14.0100       295.0000
+   Q2: Date Range (2012)        45.3540       0.8800     36283.0000
+Q3: Composite Hotel+Date         0.2380      21.6400       190.0000
+Q4: GROUP BY Aggregation         4.2250       0.7900      3380.0000
+ Q5: JOIN Reviews+Hotels        15.0100       1.5200     12008.0000
+    Q6: LIKE Text Search         0.0010       1.0100         1.0000
 
 
 --- EXPLAIN QUERY PLANS ---
 
   Q1 Point Lookup (no index)
-    (2, 0, 216, 'SCAN reviews')
+    (2, 0, 0, 'SCAN reviews')
 
   Q1 Point Lookup (with index)
-    (3, 0, 61, 'SEARCH reviews USING INDEX idx_r_hotel (hotel_id=?)')
+    (3, 0, 0, 'SEARCH reviews USING INDEX idx_r_hotel (hotel_id=?)')
 
   Q2 Date Range (with index)
-    (3, 0, 203, 'SEARCH reviews USING INDEX idx_r_date (review_date>?)')
+    (3, 0, 0, 'SEARCH reviews USING INDEX idx_r_date (review_date>?)')
 
   Q3 Composite (with index)
-    (3, 0, 51, 'SEARCH reviews USING INDEX idx_r_hotel_date (hotel_id=? AND review_date>?)')
+    (3, 0, 0, 'SEARCH reviews USING INDEX idx_r_hotel_date (hotel_id=? AND review_date>?)')
 
   Q4 Aggregation (with index)
-    (7, 0, 223, 'SCAN reviews USING INDEX idx_r_hotel')
+    (7, 0, 0, 'SCAN reviews USING INDEX idx_r_hotel')
 
   Q5 JOIN (with index)
-    (4, 0, 216, 'SCAN r')
-    (6, 0, 47, 'SEARCH h USING INDEX ux_h_id (hotel_id=?)')
+    (4, 0, 0, 'SCAN r')
+    (6, 0, 0, 'SEARCH h USING INDEX ux_h_id (hotel_id=?)')
 
   Q6 LIKE text (with index)
-    (3, 0, 216, 'SCAN reviews')
+    (3, 0, 0, 'SCAN reviews')
 
 
 --- ANTI-PATTERN ANALYSIS ---
                               Anti-Pattern  Slow (ms)  Fast (ms) Improvement
-               Function wrap defeats index    14.4800     0.6090       23.8x
-             SELECT * vs column projection     0.6550     0.2150        3.0x
-Correlated subquery vs pre-aggregated JOIN  2736.4350    85.3550       32.1x
+               Function wrap defeats index    11.6090     0.7810       14.9x
+             SELECT * vs column projection     0.7740     0.2090        3.7x
+Correlated subquery vs pre-aggregated JOIN  2610.4300    90.1590       29.0x
