@@ -1,112 +1,112 @@
 ======================================================================
 HOTEL ANALYTICS - CODE PROFILING RESULTS
-Generated : 2026-02-21 16:11:38
+Generated : 2026-02-22 20:40:07
 ======================================================================
 
 --- DATA LOADING STRATEGIES ---
-  Full load (SELECT *)          :    297.0 ms
-  Chunked (5 000/batch)         :    282.2 ms
-  Column projection (6)         :    106.0 ms
+  Full load (SELECT *)          :    366.7 ms
+  Chunked (5 000/batch)         :    391.4 ms
+  Column projection (6)         :    156.8 ms
 
 
 --- cProfile: pd.read_sql (full load) ---
-         3693 function calls (3656 primitive calls) in 0.315 seconds
+         3595 function calls (3561 primitive calls) in 0.437 seconds
 
    Ordered by: cumulative time
-   List reduced from 356 to 18 due to restriction <18>
+   List reduced from 347 to 18 due to restriction <18>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      2/1    0.000    0.000    0.314    0.314 /var/folders/9_/fy5p9d_52f9d3dxp8df05zlc0000gn/T/ipykernel_29960/3914024248.py:4(load_full)
-      2/1    0.010    0.005    0.314    0.314 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/io/sql.py:572(read_sql)
-        7    0.000    0.000    0.202    0.029 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:1894(_run_once)
-        7    0.014    0.002    0.201    0.029 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/selectors.py:558(select)
-        7    0.188    0.027    0.188    0.027 {method 'control' of 'select.kqueue' objects}
-        1    0.000    0.000    0.101    0.101 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/io/sql.py:2717(read_query)
-        1    0.005    0.005    0.072    0.072 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/io/sql.py:196(_wrap_result)
-        1    0.014    0.014    0.066    0.066 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/io/sql.py:162(_convert_arrays_to_dataframe)
-        1    0.000    0.000    0.034    0.034 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:1006(convert_object_array)
-       18    0.033    0.002    0.034    0.002 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:1028(convert)
-        1    0.002    0.002    0.029    0.029 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/io/sql.py:2757(_fetchall_as_list)
-        1    0.027    0.027    0.027    0.027 {method 'fetchall' of 'sqlite3.Cursor' objects}
-        1    0.000    0.000    0.019    0.019 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/frame.py:698(__init__)
-        1    0.000    0.000    0.019    0.019 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:423(dict_to_mgr)
-        1    0.003    0.003    0.019    0.019 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:96(arrays_to_mgr)
-        1    0.000    0.000    0.016    0.016 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:2140(create_block_manager_from_column_arrays)
-        1    0.000    0.000    0.010    0.010 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1801(_consolidate_inplace)
-        1    0.000    0.000    0.010    0.010 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:2278(_consolidate)
+      2/1    0.000    0.000    0.436    0.436 /tmp/ipykernel_233064/1021721460.py:1(load_full)
+      2/1    0.019    0.009    0.436    0.436 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/io/sql.py:572(read_sql)
+        4    0.000    0.000    0.237    0.059 /home/User/.pyenv/versions/3.12.1/lib/python3.12/asyncio/base_events.py:1894(_run_once)
+        4    0.044    0.011    0.236    0.059 /home/User/.pyenv/versions/3.12.1/lib/python3.12/selectors.py:451(select)
+        4    0.193    0.048    0.193    0.048 {method 'poll' of 'select.epoll' objects}
+        1    0.000    0.000    0.178    0.178 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/io/sql.py:2717(read_query)
+        1    0.008    0.008    0.137    0.137 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/io/sql.py:196(_wrap_result)
+        1    0.031    0.031    0.128    0.128 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/io/sql.py:162(_convert_arrays_to_dataframe)
+        1    0.000    0.000    0.059    0.059 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:1006(convert_object_array)
+       18    0.059    0.003    0.059    0.003 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:1028(convert)
+        1    0.005    0.005    0.041    0.041 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/io/sql.py:2757(_fetchall_as_list)
+        1    0.000    0.000    0.038    0.038 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/frame.py:698(__init__)
+        1    0.000    0.000    0.038    0.038 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:423(dict_to_mgr)
+        1    0.005    0.005    0.037    0.037 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:96(arrays_to_mgr)
+        1    0.035    0.035    0.035    0.035 {method 'fetchall' of 'sqlite3.Cursor' objects}
+        1    0.000    0.000    0.032    0.032 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:2140(create_block_manager_from_column_arrays)
+        1    0.000    0.000    0.018    0.018 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1801(_consolidate_inplace)
+        1    0.000    0.000    0.018    0.018 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:2278(_consolidate)
 
 
 
 
 --- cProfile: compute_hotel_stats_full ---
-         8871 function calls (8596 primitive calls) in 0.011 seconds
+         8802 function calls (8524 primitive calls) in 0.017 seconds
 
    Ordered by: cumulative time
-   List reduced from 538 to 18 due to restriction <18>
+   List reduced from 530 to 18 due to restriction <18>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      2/1    0.000    0.000    0.010    0.010 /var/folders/9_/fy5p9d_52f9d3dxp8df05zlc0000gn/T/ipykernel_29960/703688451.py:7(compute_hotel_stats_full)
-      2/1    0.000    0.000    0.009    0.009 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/generic.py:1420(aggregate)
-        1    0.000    0.000    0.009    0.009 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/apply.py:172(agg)
-        1    0.000    0.000    0.009    0.009 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/apply.py:415(agg_dict_like)
-        1    0.000    0.000    0.009    0.009 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/apply.py:1570(agg_or_apply_dict_like)
-        1    0.000    0.000    0.008    0.008 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/apply.py:425(compute_dict_like)
-     24/6    0.000    0.000    0.008    0.001 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/generic.py:232(aggregate)
-        6    0.000    0.000    0.008    0.001 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/generic.py:331(_aggregate_multiple_funcs)
-       18    0.000    0.000    0.006    0.000 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/internals/base.py:365(grouped_reduce)
-       12    0.000    0.000    0.006    0.001 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1964(_cython_agg_general)
-       12    0.000    0.000    0.006    0.000 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1978(array_func)
-       12    0.000    0.000    0.006    0.000 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:821(_cython_operation)
-        6    0.000    0.000    0.005    0.001 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2372(mean)
-        1    0.000    0.000    0.004    0.004 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:744(has_dropped_na)
-        1    0.000    0.000    0.004    0.004 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:752(group_info)
-        1    0.000    0.000    0.004    0.004 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:767(_get_compressed_codes)
-        1    0.000    0.000    0.004    0.004 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/grouper.py:689(codes)
-        1    0.000    0.000    0.002    0.002 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/pandas/core/groupby/grouper.py:777(_codes_and_uniques)
+        6    0.000    0.000    0.013    0.002 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/generic.py:331(_aggregate_multiple_funcs)
+       18    0.000    0.000    0.011    0.001 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/internals/base.py:365(grouped_reduce)
+       12    0.000    0.000    0.010    0.001 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1964(_cython_agg_general)
+       12    0.000    0.000    0.010    0.001 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1978(array_func)
+       12    0.000    0.000    0.009    0.001 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:821(_cython_operation)
+        6    0.000    0.000    0.008    0.001 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2372(mean)
+        1    0.000    0.000    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:744(has_dropped_na)
+        1    0.000    0.000    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:752(group_info)
+        1    0.000    0.000    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:767(_get_compressed_codes)
+        1    0.000    0.000    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/grouper.py:689(codes)
+        1    0.000    0.000    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/grouper.py:777(_codes_and_uniques)
+        1    0.002    0.002    0.005    0.005 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/algorithms.py:610(factorize)
+       12    0.000    0.000    0.004    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:532(cython_operation)
+       12    0.000    0.000    0.004    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:311(_cython_op_ndim_compat)
+       12    0.004    0.000    0.004    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:358(_call_cython_op)
+        1    0.000    0.000    0.003    0.003 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/decorator.py:232(fun)
+        1    0.000    0.000    0.003    0.003 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/IPython/core/history.py:94(only_when_enabled)
+        6    0.000    0.000    0.002    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2546(std)
 
 
 
 
 --- cProfile: KMeans clustering pipeline ---
-         99432 function calls (99275 primitive calls) in 0.376 seconds
+         20560 function calls (20551 primitive calls) in 0.758 seconds
 
    Ordered by: cumulative time
-   List reduced from 582 to 15 due to restriction <15>
+   List reduced from 415 to 15 due to restriction <15>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        2    0.000    0.000    0.375    0.187 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/base.py:1319(wrapper)
-        1    0.000    0.000    0.374    0.374 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:1047(fit_predict)
-       10    0.000    0.000    0.307    0.031 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/utils/parallel.py:206(wrapper)
-       10    0.249    0.025    0.255    0.025 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:629(_kmeans_single_lloyd)
-        5    0.002    0.000    0.200    0.040 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:1894(_run_once)
-        1    0.000    0.000    0.174    0.174 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:1432(fit)
-       10    0.000    0.000    0.052    0.005 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/sklearn/utils/parallel.py:187(_get_threadpool_controller)
-        1    0.000    0.000    0.052    0.052 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/threadpoolctl.py:816(__init__)
-        1    0.000    0.000    0.051    0.051 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/threadpoolctl.py:967(_load_libraries)
-        1    0.001    0.001    0.051    0.051 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/threadpoolctl.py:1019(_find_libraries_with_dyld)
-      626    0.001    0.000    0.050    0.000 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/threadpoolctl.py:1143(_make_controller_from_path)
-      626    0.000    0.000    0.040    0.000 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/threadpoolctl.py:545(_realpath)
-      626    0.001    0.000    0.040    0.000 <frozen posixpath>:431(realpath)
-      626    0.006    0.000    0.037    0.000 <frozen posixpath>:440(_joinrealpath)
-        1    0.000    0.000    0.032    0.032 /Users/reiner/Documents/GitHub/IS512-Hotel-Analytics/venv/lib/python3.12/site-packages/joblib/parallel.py:631(cpu_count)
+        1    0.000    0.000    0.757    0.757 /tmp/ipykernel_233064/4271326684.py:6(clustering_pipeline)
+        2    0.000    0.000    0.757    0.378 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/base.py:1319(wrapper)
+        1    0.000    0.000    0.755    0.755 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:1047(fit_predict)
+       10    0.000    0.000    0.683    0.068 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/utils/parallel.py:206(wrapper)
+       10    0.668    0.067    0.682    0.068 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:629(_kmeans_single_lloyd)
+        1    0.000    0.000    0.555    0.555 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:1432(fit)
+        3    0.000    0.000    0.200    0.067 /home/User/.pyenv/versions/3.12.1/lib/python3.12/asyncio/base_events.py:1894(_run_once)
+        3    0.000    0.000    0.045    0.015 /home/User/.pyenv/versions/3.12.1/lib/python3.12/selectors.py:451(select)
+        3    0.043    0.014    0.043    0.014 {method 'poll' of 'select.epoll' objects}
+       10    0.000    0.000    0.025    0.003 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:961(_init_centroids)
+       10    0.002    0.000    0.025    0.003 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:180(_kmeans_plusplus)
+       50    0.002    0.000    0.020    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/metrics/pairwise.py:374(_euclidean_distances)
+       50    0.014    0.000    0.014    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/utils/extmath.py:166(safe_sparse_dot)
+      282    0.002    0.000    0.008    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/sklearn/utils/extmath.py:60(row_norms)
+      432    0.001    0.000    0.004    0.000 /home/User/Documents/IS5128/IS512-Hotel-Analytics/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53(_wrapfunc)
 
 
 
 
 --- VECTORISATION BENCHMARK ---
               Method N rows  Time (ms)  Speedup vs loop
-Python iterrows loop   10 k   112.3600           1.0000
-      Pandas groupby   10 k     1.0600         106.0000
-      Pandas groupby   80 k     3.6500          30.8000
-      NumPy bincount   80 k    26.7700           4.2000
-  Pandas groupby speedup vs iterrows: ~106x (10k rows)
+Python iterrows loop   10 k   298.3300           1.0000
+      Pandas groupby   10 k     2.1600         138.1000
+      Pandas groupby   80 k     4.9600          60.1000
+      NumPy bincount   80 k    54.7000           5.5000
+  Pandas groupby speedup vs iterrows: ~138x (10k rows)
   NumPy bincount speedup vs Pandas:   ~0.1x (80k rows)
 
 
 --- MEMORY PROFILING (tracemalloc) ---
                              Net Delta (MB)  Snapshot Top20 (MB)
 Operation                                                       
-Load reviews (SELECT *)            112.4600             112.4600
+Load reviews (SELECT *)            112.4500             112.4500
 Load reviews (projection)           15.7700              15.7700
 Hotel stats (full, 18 cols)          0.5100               0.5000
 Hotel stats (minimal, 3)             0.1100               0.1100
